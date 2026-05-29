@@ -86,7 +86,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onClose, onLoginSuccess })
         maxWidth: '400px',
         padding: '32px',
         position: 'relative',
-        boxShadow: '0 20px 50px rgba(0,0,0,0.5)'
+        boxShadow: '0 20px 50px rgba(0,0,0,0.08)'
       }}>
         {/* Close Button */}
         <button 
@@ -136,7 +136,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onClose, onLoginSuccess })
           <div className="form-group">
             <label className="form-label">Email Address</label>
             <div style={{ position: 'relative' }}>
-              <Mail size={16} style={{ position: 'absolute', left: '12px', top: '14px', color: 'rgba(255,255,255,0.3)' }} />
+              <Mail size={16} style={{ position: 'absolute', left: '12px', top: '14px', color: 'rgba(0,0,0,0.25)' }} />
               <input 
                 type="email" 
                 required 
@@ -152,7 +152,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onClose, onLoginSuccess })
           <div className="form-group" style={{ marginBottom: '24px' }}>
             <label className="form-label">Password</label>
             <div style={{ position: 'relative' }}>
-              <Lock size={16} style={{ position: 'absolute', left: '12px', top: '14px', color: 'rgba(255,255,255,0.3)' }} />
+              <Lock size={16} style={{ position: 'absolute', left: '12px', top: '14px', color: 'rgba(0,0,0,0.25)' }} />
               <input 
                 type="password" 
                 required 

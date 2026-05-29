@@ -371,7 +371,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, premium, setPremium 
                     left: 0,
                     right: 0,
                     bottom: 0,
-                    background: 'linear-gradient(to bottom, rgba(20,20,23,0.3) 0%, rgba(20,20,23,0.95) 75%)',
+                    background: 'linear-gradient(to bottom, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.98) 75%)',
                     backdropFilter: 'blur(2px)',
                     display: 'flex',
                     flexDirection: 'column',
@@ -382,8 +382,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, premium, setPremium 
                     borderRadius: '6px'
                   }}>
                     <div style={{
-                      backgroundColor: 'rgba(147, 51, 234, 0.1)',
-                      border: '1px solid rgba(147, 51, 234, 0.2)',
+                      backgroundColor: 'rgba(99, 102, 241, 0.08)',
+                      border: '1px solid rgba(99, 102, 241, 0.15)',
                       padding: '8px',
                       borderRadius: '50%',
                       color: 'hsl(var(--primary))',
@@ -412,7 +412,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, premium, setPremium 
             ) : (
               /* Idle Empty State Screen */
               <div style={{ flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '16px', color: 'hsl(var(--text-muted))' }}>
-                <Sparkles size={48} style={{ strokeWidth: 1, color: 'rgba(255,255,255,0.15)' }} />
+                <Sparkles size={48} style={{ strokeWidth: 1, color: 'rgba(0,0,0,0.08)' }} />
                 <div style={{ textAlign: 'center' }}>
                   <p style={{ fontWeight: 500 }}>No optimized data generated yet</p>
                   <p style={{ fontSize: '0.85rem', marginTop: '4px' }}>

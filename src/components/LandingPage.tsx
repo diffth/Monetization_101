@@ -140,8 +140,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({ user, premium, onGetSt
 
           <div className="glass-panel" style={{ 
             padding: '48px 32px',
-            border: '2px solid rgba(147, 51, 234, 0.3)',
-            boxShadow: '0 15px 40px rgba(147, 51, 234, 0.1)',
+            border: '2px solid rgba(99, 102, 241, 0.25)',
+            boxShadow: '0 15px 40px rgba(99, 102, 241, 0.05)',
             position: 'relative'
           }}>
             <div style={{ 
