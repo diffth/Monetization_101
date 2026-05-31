@@ -1,34 +1,38 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
-
 :root {
   /* Design Tokens - Soft Light Mode Palette */
-  --bg-main: 210 20% 98%;       /* Soft light grayish blue */
-  --bg-card: 0 0% 100%;         /* Pure White */
+  --bg-main: 210 20% 98%;
+  /* Soft light grayish blue */
+  --bg-card: 0 0% 100%;
+  /* Pure White */
   --bg-card-glass: rgba(255, 255, 255, 0.75);
-  
-  --primary: 256 85% 58%;       /* Royal Indigo */
+
+  --primary: 256 85% 58%;
+  /* Royal Indigo */
   --primary-glow: rgba(99, 102, 241, 0.08);
-  --secondary: 162 76% 39%;     /* Slate Emerald/Teal */
+  --secondary: 162 76% 39%;
+  /* Slate Emerald/Teal */
   --secondary-glow: rgba(16, 185, 129, 0.08);
-  
-  --text-main: 215 25% 15%;     /* Deep Slate Gray */
-  --text-muted: 215 16% 47%;    /* Medium Slate Gray */
+
+  --text-main: 215 25% 15%;
+  /* Deep Slate Gray */
+  --text-muted: 215 16% 47%;
+  /* Medium Slate Gray */
   --text-dark: 215 25% 10%;
-  
+
   --border: rgba(0, 0, 0, 0.07);
   --border-focus: rgba(99, 102, 241, 0.4);
-  
+
   --success: 142 70% 45%;
   --warning: 38 92% 50%;
   --error: 0 84% 60%;
-  
+
   --font-heading: 'Outfit', sans-serif;
   --font-body: 'Inter', sans-serif;
-  
+
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 20px;
-  
+
   --transition-fast: 0.2s ease;
   --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -50,7 +54,12 @@ body {
   overflow-x: hidden;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -61,13 +70,16 @@ h1, h2, h3, h4, h5, h6 {
 ::-webkit-scrollbar {
   width: 8px;
 }
+
 ::-webkit-scrollbar-track {
   background: hsl(var(--bg-main));
 }
+
 ::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.1);
   border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 0, 0, 0.2);
 }
@@ -89,8 +101,8 @@ h1, h2, h3, h4, h5, h6 {
 /* Glassmorphism Classes (Light Mode) */
 .glass-panel {
   background: var(--bg-card-glass);
-  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.03);
@@ -99,6 +111,7 @@ h1, h2, h3, h4, h5, h6 {
 .glass-panel-hover {
   transition: var(--transition-normal);
 }
+
 .glass-panel-hover:hover {
   border-color: rgba(99, 102, 241, 0.2);
   box-shadow: 0 15px 40px rgba(99, 102, 241, 0.08);
@@ -109,6 +122,7 @@ h1, h2, h3, h4, h5, h6 {
 .text-gradient {
   background: linear-gradient(135deg, hsl(var(--primary)) 0%, #4f46e5 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -158,10 +172,12 @@ h1, h2, h3, h4, h5, h6 {
   color: white;
   box-shadow: 0 4px 14px rgba(99, 102, 241, 0.25);
 }
+
 .btn-primary:hover {
   transform: translateY(-1px);
   box-shadow: 0 6px 20px rgba(99, 102, 241, 0.35);
 }
+
 .btn-primary:disabled {
   background: rgba(0, 0, 0, 0.05);
   color: hsl(var(--text-muted));
@@ -175,6 +191,7 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid var(--border);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
+
 .btn-secondary:hover {
   background: rgba(0, 0, 0, 0.02);
   border-color: rgba(0, 0, 0, 0.15);
@@ -185,6 +202,7 @@ h1, h2, h3, h4, h5, h6 {
   color: hsl(var(--text-muted));
   padding: 8px 16px;
 }
+
 .btn-text:hover {
   color: hsl(var(--text-main));
   background: rgba(0, 0, 0, 0.03);
@@ -227,7 +245,8 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 6px;
 }
 
-.form-input, .form-textarea {
+.form-input,
+.form-textarea {
   width: 100%;
   background: hsl(var(--bg-card));
   border: 1px solid var(--border);
@@ -237,10 +256,11 @@ h1, h2, h3, h4, h5, h6 {
   padding: 10px 14px;
   border-radius: var(--radius-sm);
   transition: var(--transition-fast);
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.02);
 }
 
-.form-input:focus, .form-textarea:focus {
+.form-input:focus,
+.form-textarea:focus {
   outline: none;
   border-color: hsl(var(--primary));
   box-shadow: 0 0 0 3px var(--primary-glow);
@@ -262,13 +282,22 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Keyframes for fade */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .fade-in {
