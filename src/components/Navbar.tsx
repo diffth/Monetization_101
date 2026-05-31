@@ -2,9 +2,10 @@ import React from 'react';
 import { LogOut, Award, LayoutDashboard } from 'lucide-react';
 import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
+import type { User } from 'firebase/auth';
 
 interface NavbarProps {
-  user: any;
+  user: User | null;
   premium: boolean;
   onOpenAuth: () => void;
   currentTab: string;

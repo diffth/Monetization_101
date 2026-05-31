@@ -3,8 +3,8 @@ import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 
 interface CheckoutButtonProps {
   amount: string;
-  onSuccess: (details: any) => void;
-  onError: (err: any) => void;
+  onSuccess: (details: unknown) => void;
+  onError: (err: unknown) => void;
 }
 
 export const CheckoutButton: React.FC<CheckoutButtonProps> = ({ amount, onSuccess, onError }) => {

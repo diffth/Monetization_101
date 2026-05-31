@@ -5,11 +5,12 @@ import { Dashboard } from './components/Dashboard';
 import { AuthModal } from './components/AuthModal';
 import { auth, db } from './firebase';
 import { onAuthStateChanged } from 'firebase/auth';
+import type { User } from 'firebase/auth';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 
 function App() {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [premium, setPremium] = useState<boolean>(false);
   const [authOpen, setAuthOpen] = useState<boolean>(false);
   const [currentTab, setCurrentTab] = useState<string>('landing');

@@ -51,16 +51,17 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onClose, onLoginSuccess })
       }
       onLoginSuccess();
       onClose();
-    } catch (err: any) {
+    } catch (err) {
       console.error(err);
-      if (err.code === 'auth/email-already-in-use') {
+      const firebaseError = err as { code?: string; message?: string };
+      if (firebaseError.code === 'auth/email-already-in-use') {
         setError('This email is already registered.');
-      } else if (err.code === 'auth/weak-password') {
+      } else if (firebaseError.code === 'auth/weak-password') {
         setError('Password should be at least 6 characters.');
-      } else if (err.code === 'auth/invalid-credential') {
+      } else if (firebaseError.code === 'auth/invalid-credential') {
         setError('Invalid email or password.');
       } else {
-        setError(err.message || 'An error occurred during authentication.');
+        setError(firebaseError.message || 'An error occurred during authentication.');
       }
     } finally {
       setLoading(false);

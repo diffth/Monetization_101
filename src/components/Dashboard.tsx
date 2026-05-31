@@ -1,14 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Sparkles, FileText, Download, Lock, CheckCircle, RefreshCw, AlertCircle } from 'lucide-react';
 import CheckoutButton from './CheckoutButton';
 import { db } from '../firebase';
 import { doc, updateDoc } from 'firebase/firestore';
+import type { User } from 'firebase/auth';
 
 interface DashboardProps {
-  user: any;
+  user: User | null;
   premium: boolean;
   setPremium: (p: boolean) => void;
 }
+
+interface OptimizedResume {
+  name: string;
+  email: string;
+  summary: string;
+  work: string;
+  education: string;
+  skills: string;
+}
+
+// Loading steps animation
+const steps = [
+  "Analyzing work experience profile...",
+  "Matching credentials with target Job Description...",
+  "Identifying high-value ATS keyword gaps...",
+  "Engineering impact-focused achievement bullet points...",
+  "Polishing layout format..."
+];
 
 export const Dashboard: React.FC<DashboardProps> = ({ user, premium, setPremium }) => {
   // Input fields
@@ -24,45 +43,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, premium, setPremium 
   // Statuses
   const [optimizing, setOptimizing] = useState(false);
   const [step, setStep] = useState(0);
-  const [optimizedResume, setOptimizedResume] = useState<any>(null);
+  const [optimizedResume, setOptimizedResume] = useState<OptimizedResume | null>(null);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  // Loading steps animation
-  const steps = [
-    "Analyzing work experience profile...",
-    "Matching credentials with target Job Description...",
-    "Identifying high-value ATS keyword gaps...",
-    "Engineering impact-focused achievement bullet points...",
-    "Polishing layout format..."
-  ];
-
-  useEffect(() => {
-    let interval: any;
-    if (optimizing) {
-      interval = setInterval(() => {
-        setStep((prev) => {
-          if (prev < steps.length - 1) {
-            return prev + 1;
-          } else {
-            clearInterval(interval);
-            setOptimizing(false);
-            generateOptimizedContent();
-            return 0;
-          }
-        });
-      }, 1000);
-    }
-    return () => clearInterval(interval);
-  }, [optimizing]);
-
-  const handleOptimize = () => {
-    setError('');
-    setOptimizing(true);
-    setStep(0);
-  };
-
-  const generateOptimizedContent = () => {
+  const generateOptimizedContent = useCallback(() => {
     // Basic parser for demonstration
     const skillsList = skills.split(',').map(s => s.trim());
     
@@ -71,11 +56,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, premium, setPremium 
     const finalSkills = [...new Set([...skillsList, ...keywordsToInject])].join(', ');
 
     // Transform weak verbs into strong action achievements
-    let expLines = workExperience.split('\n');
-    let optimizedExpLines = expLines.map(line => {
-      let trimmed = line.trim();
+    const expLines = workExperience.split('\n');
+    const optimizedExpLines = expLines.map(line => {
+      const trimmed = line.trim();
       if (trimmed.startsWith('-')) {
-        let content = trimmed.substring(1).trim();
+        const content = trimmed.substring(1).trim();
         // Transformation logic
         if (content.toLowerCase().includes("managed a team")) {
           return "- Orchestrated frontend deliverables and mentored a high-performing team of 3 software engineers to launch the core enterprise web app.";
@@ -92,30 +77,64 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, premium, setPremium 
     });
 
     setOptimizedResume({
-      name: user.displayName || user.email.split('@')[0].toUpperCase(),
-      email: user.email,
+      name: user?.displayName || user?.email?.split('@')[0].toUpperCase() || 'USER',
+      email: user?.email || '',
       summary: `Results-driven Software Engineer with proven expertise in React, frontend architecture, and performance optimization. Skilled in aligning software deliverables with business goals to boost customer retention.`,
       work: optimizedExpLines.join('\n'),
       education: education,
       skills: finalSkills
     });
+  }, [skills, workExperience, user, education]);
+
+  useEffect(() => {
+    let interval: number | undefined;
+    if (optimizing) {
+      interval = window.setInterval(() => {
+        setStep((prev) => {
+          if (prev < steps.length - 1) {
+            return prev + 1;
+          } else {
+            if (interval !== undefined) {
+              clearInterval(interval);
+            }
+            setOptimizing(false);
+            generateOptimizedContent();
+            return 0;
+          }
+        });
+      }, 1000);
+    }
+    return () => {
+      if (interval !== undefined) {
+        clearInterval(interval);
+      }
+    };
+  }, [optimizing, generateOptimizedContent]);
+
+  const handleOptimize = () => {
+    setError('');
+    setOptimizing(true);
+    setStep(0);
   };
 
   // Payment success handler
-  const handlePaymentSuccess = async (_details: any) => {
+  const handlePaymentSuccess = async (details: unknown) => {
     try {
-      // Update Firebase Firestore
-      const userRef = doc(db, 'users', user.uid);
-      await updateDoc(userRef, { premium: true });
-      setPremium(true);
-      setSuccess('Payment successful! Pro Features have been unlocked.');
+      console.log("Payment details:", details);
+      if (user) {
+        // Update Firebase Firestore
+        const userRef = doc(db, 'users', user.uid);
+        await updateDoc(userRef, { premium: true });
+        setPremium(true);
+        setSuccess('Payment successful! Pro Features have been unlocked.');
+      }
     } catch (err) {
       console.error("Error updating subscription:", err);
       setError('Payment processed, but failed to update status. Please contact support.');
     }
   };
 
-  const handlePaymentError = (err: any) => {
+  const handlePaymentError = (err: unknown) => {
     console.error("PayPal checkout error:", err);
     setError('Payment processing encountered an error. Please try again.');
   };

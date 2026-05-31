@@ -1,8 +1,9 @@
 import React from 'react';
+import type { User } from 'firebase/auth';
 import { ArrowRight, Sparkles, FileText, CheckCircle, ShieldCheck } from 'lucide-react';
 
 interface LandingPageProps {
-  user: any;
+  user: User | null;
   premium: boolean;
   onGetStarted: () => void;
 }
